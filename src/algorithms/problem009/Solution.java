@@ -4,16 +4,21 @@ class Solution {
 
     public boolean isPalindrome(int x) {
 
-        String intString = Integer.toString(x);
-        int i = 0;
-        int j = intString.length() - 1;
+        if (x < 0) return false;
 
-        while (i < intString.length() / 2) {
-            if (intString.charAt(i) != intString.charAt(j)) {
-                return false;
-            }
-            i++;
-            j--;
+        int divisor = 1;
+        while (x / divisor >= 10) {
+            divisor *= 10;
+        }
+
+        while (x != 0) {
+            int left = x / divisor;
+            int right = x % 10;
+
+            if (left != right) return false;
+
+            x = (x % divisor) / 10;
+            divisor /= 100;
         }
 
         return true;
